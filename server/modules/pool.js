@@ -1,0 +1,24 @@
+const pg = require('pg');
+let pool;
+
+// we're learning this later but I'm using it now!
+if (process.env.DATABASE_URL) {
+    pool = new pg.Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+            rejectUnauthorized: falsemodul
+        }
+    });
+}
+// When we're running this app on our own computer
+// we'll connect to the postgres database that is 
+// also running on our computer (localhost)
+else {
+    pool = new pg.Pool({
+        host: 'localhost',
+        port: 5432,
+        database: 'koala_deville',
+    });
+}
+
+module.exports = pool;
