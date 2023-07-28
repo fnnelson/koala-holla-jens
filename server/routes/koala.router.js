@@ -37,7 +37,52 @@ koalaRouter.post('/', (req, res) => {
 
 // PUT
 
+koalaRouter.put('/transferkoala/:id', (req, res) => {
+    console.log("req.params is:", req.params);
+  
+    // getting the id from params
+    let koalaId = req.params.id;
+    // need to update boolean to true
+    let updateTransfer = true;
+    let queryParams = [updateTransfer, koalaId];
+  
+    // writing a query that updates, targets koalaId, updates isRead to true
+    let queryText = `UPDATE "koali" SET "ready_to_transfer" = $1 WHERE "id" = $2;`
+    console.log(`Success connecting to /updatekoala. koalaId = ${koalaId}, readStatus = ${updateTransfer}`)
+  
+    pool.query(queryText, queryParams)
+      .then((response) => {
+        res.sendStatus(200)
+      })
+      .catch((error) => {
+        console.log(error);
+        res.sendStatus(500)
+      })
+  })
+
 
 // DELETE
+
+koalaRouter.delete('/deletekoala/:id', (req, res) => {
+
+    // getting the id from params
+    let koalaToDeleteId = req.params.id;
+  
+    // deleting koala with matching id
+    let queryText = `DELETE FROM "koali" WHERE id=$1;`
+  
+    pool.query(queryText, [koalaToDeleteId]) // can do it this way if you want to keep your koalaToDeleteId variable outside of an array
+      .then((result) => {
+        console.log("koala deleted, id:", koalaToDeleteId);
+        res.sendStatus(200);
+      })
+      .catch((error) => {
+        console.log("error making database query:", queryText);
+        console.log("error message", error);
+        res.sendStatus(500);
+      })
+  
+  
+  })
 
 module.exports = koalaRouter;

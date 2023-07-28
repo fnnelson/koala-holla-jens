@@ -11,6 +11,8 @@ $(document).ready(function () {
 }); // end doc ready
 
 function setupClickListeners() {
+  $('#viewKoalas').on('click', '.deleteBtn', handleDelete)
+  $('#viewKoalas').on('click', '.transferBtn', handleTransfer)
   $('#addButton').on('click', function () {
     console.log('in addButton on click');
     // get user input and put in an object
@@ -28,11 +30,52 @@ function setupClickListeners() {
       readyForTransfer: newKoalaTransfer,
       notes: newKoalaNotes,
     };
-    // call saveKoala with the new obejct
+
+
     saveKoala(koalaToSend);
-  });
+  })
+  // call saveKoala with the new obejct
+};
+
+function handleDelete() {
+  const koalaId = $(this).parent().parent().data('id')
+  console.log("in handleDelete: id is:", koalaId);
+  console.log($(this))
+
+  // ajax delete request to /koalas/:id
+  $.ajax({
+    method: 'DELETE',
+    url: `/koalas/deletekoala/${koalaId}`
+  })
+    .then((response) => {
+      console.log(`Deleted koalaid: ${koalaId}`)
+      // will retrieve latest version of table & rerender DOM
+      refreshKoalas();
+    })
 }
 
+function handleTransfer() {
+  console.log("inside handleTransfer");
+
+  // getter to update the specific item when id is obtained
+  const koalaId = $(this).parent().parent().data('id')
+  console.log("Will update this koala Transfer:", koalaId);
+
+  // ajax request to use the route /koalas/Transferkoala/:id
+
+  $.ajax({
+    method: 'PUT',
+    url: `/koalas/transferkoala/${koalaId}`
+  })
+    .then((response) => {
+      console.log("Success, for id:", koalaId);
+      // will retrieve the latest version of table and rerender DOM
+      refreshKoalas();
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+}
 function getKoalas() {
   console.log('in getKoalas');
   // ajax call to server to get koalas

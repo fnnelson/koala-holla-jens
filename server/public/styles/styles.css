@@ -1,6 +1,7 @@
 body {
-    background-image: url(https://images.unsplash.com/photo-1580580959742-e1fd6cb08867?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=654&q=80);
-    background-size: cover;
+    /* background-image: url(https://images.unsplash.com/photo-1580580959742-e1fd6cb08867?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=654&q=80); */
+    background-image: url(https://gifdb.com/images/high/anime-bamboo-forest-background-5rx5lwev45pcnpaf.webp);
+    background-size: contain;
 }
 
 header {
@@ -8,6 +9,8 @@ header {
     background-size: cover;
     background-position-y: 27%;
     border: 5px solid white;
+    border-radius: 70px;
+    opacity: 90%;
 }
 
 h1, h2, h3 {
@@ -24,6 +27,7 @@ h1, h2, h3 {
     margin: 30px 30px 30px 0;
     float: left;
     max-width: 25%;
+    border-radius: 20px;
 }
 
 .container-text {
